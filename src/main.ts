@@ -1,9 +1,9 @@
-const SW_FILE = "/src/sw.ts";
+const SW_FILE = "/comfyui-ghpages/src/sw.ts";
 
 async function register() {
   try {
     const registration = await navigator.serviceWorker.register(SW_FILE, {
-      scope: "/",
+      scope: "/comfyui-ghpages/",
       type: "module",
     });
     console.log("Register Service Worker: Success");

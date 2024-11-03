@@ -5,7 +5,9 @@ import path from "node:path";
 import { marked } from "marked";
 import { resolve } from "path";
 
+const BASE_GH_URL = "/comfyui-ghpages/";
 export default defineConfig({
+  base: BASE_GH_URL,
   server: {
     headers: {
       "Service-Worker-Allowed": "/",
@@ -52,7 +54,7 @@ export default defineConfig({
           fs.writeFileSync(mainPath, mainContent);
 
           let swContent = fs.readFileSync(path.resolve("dist", swPath), "utf8");
-          swContent = swContent.replace("/src/main.ts", "/" + mainPath);
+          swContent = swContent.replace("/src/main.ts", BASE_GH_URL + mainPath);
           fs.writeFileSync(path.resolve("dist", swPath), swContent);
 
           let comfyHtml = fs.readFileSync(
@@ -61,7 +63,7 @@ export default defineConfig({
           );
           comfyHtml = comfyHtml.replace(
             "<head>",
-            `<head><script type='module' src='/${mainFile}'></script>`,
+            `<head><script type='module' src='${BASE_GH_URL}${mainFile}'></script>`,
           );
           fs.writeFileSync(path.resolve("dist/comfyui/index.html"), comfyHtml);
 

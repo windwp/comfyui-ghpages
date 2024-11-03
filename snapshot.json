@@ -205,10 +205,6 @@
       "hash": "70083f5d449c498ee0fb35f5293c91cebac4b758",
       "disabled": false
     },
-    "https://github.com/Gourieff/comfyui-reactor-node": {
-      "hash": "983498b162335db39a6e8e7ae77d8a8ca685efd0",
-      "disabled": false
-    },
     "https://github.com/jojkaart/ComfyUI-sampler-lcm-alternative": {
       "hash": "2ec2b92e0ee4db5f6e85f241601e0a042702c4fc",
       "disabled": false

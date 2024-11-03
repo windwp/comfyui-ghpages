@@ -1,15 +1,18 @@
-declare const self: ServiceWorkerGlobalScope;
 import { Hono } from "hono";
 
-const BASE_URL = "/comfyui";
-const app = new Hono().basePath(`${BASE_URL}/`);
+const BASE_URL = "/comfyui-ghpages";
+const COMFY_URL = `${BASE_URL}/comfyui`;
+const app = new Hono().basePath(`${COMFY_URL}/`);
+
+declare const self: ServiceWorkerGlobalScope;
+
 app.get("/", async (c) => {
-  const response = await fetch(`${BASE_URL}/index.html`);
+  const response = await fetch(`${COMFY_URL}/index.html`);
   let html = await response.text();
   if (import.meta.env.DEV) {
     html = html.replace(
       "<head>",
-      `<head><script type='module' src='/src/main.ts'></script>`,
+      `<head><script type='module' src='${BASE_URL}/src/main.ts'></script>`,
     );
   }
   return c.html(html);
@@ -60,7 +63,7 @@ app.get("/api/view", async (c) => {
   }
 });
 app.get("/api/extensions", async (c) => {
-  const ext = await fetch("/api/extensions.json");
+  const ext = await fetch(`${BASE_URL}/api/extensions.json`);
   const extensions = (await ext.json()) as unknown as string[];
   extensions.push("/extensions/playground.js");
   return c.json(extensions);
@@ -68,14 +71,14 @@ app.get("/api/extensions", async (c) => {
 
 app.get("/api/*", async (c) => {
   let pathName = new URL(c.req.url).pathname;
-  pathName = pathName.replace(`${BASE_URL}/api`, "/api") + ".json";
+  pathName = pathName.replace(`${COMFY_URL}/api`, `${BASE_URL}/api`) + ".json";
   const response = await fetch(pathName);
   if (response.ok) return response;
   return c.text("Not found", 404);
 });
 app.get("/extensions/*", async (c) => {
   let pathName = new URL(c.req.url).pathname;
-  pathName = pathName.replace(`${BASE_URL}/`, "/");
+  pathName = pathName.replace(`${COMFY_URL}/`, `${BASE_URL}/`);
   const response = await fetch(pathName);
   if (response.ok) return response;
   return c.text("Not found", 404);
@@ -83,7 +86,7 @@ app.get("/extensions/*", async (c) => {
 
 app.get("/scripts/*", async (c) => {
   let pathName = new URL(c.req.url).pathname;
-  const response = await fetch(BASE_URL + pathName);
+  const response = await fetch(COMFY_URL + pathName);
   if (response.ok) return response;
   return c.text("Not found", 404);
 });
