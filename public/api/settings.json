@@ -1,0 +1,31 @@
+{
+  "pysssss.Combo++.Submenu": true,
+  "pysssss.AutoCompleter": false,
+  "Comfy.ColorPalette": "dark",
+  "pysssss.SnapToGrid": false,
+  "VHS.AdvancedPreviews": false,
+  "Comfy.DevMode": true,
+  "Comfy.LinkRenderMode": "2",
+  "pysssss.ShowImageOnMenu": false,
+  "Comfy.NodeSuggestions.number": "8",
+  "KJNodes.DisableMiddleClickDefault": false,
+  "Comfy.EditAttention.Delta": "0.4",
+  "mtb.Debug.enabled": false,
+  "Comfy.Logging.Enabled": false,
+  "Comfy.EasyUse.NodeTemplateShortcut": false,
+  "Comfy.MenuPosition": true,
+  "Comfy.UseNewMenu": "Top",
+  "Comfy.NodeSearchBoxImpl.NodePreview": true,
+  "Comfy.Sidebar.Size": "small",
+  "Comfy.Sidebar.Location": "left",
+  "Comfy.NodeLibrary.Bookmarks": [],
+  "AE.showlinks": 0,
+  "Comfy.EnableTooltips": false,
+  "Comfy.Workflow.ShowMissingModelsWarning": true,
+  "Comfy.NodeInputConversionSubmenus": true,
+  "Comfy.Graph.ZoomSpeed": 1.2,
+  "Comfy.MenuPosition.Floating": {
+    "x": 60,
+    "y": 60
+  }
+}

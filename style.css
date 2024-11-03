@@ -1,0 +1,13 @@
+@import "github-markdown-css/github-markdown.css";
+
+body {
+  margin: 0px
+}
+
+.markdown-body {
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  margin: 0 auto;
+  padding: 45px;
+}
