@@ -2,7 +2,7 @@ import * as LzString from "lz-string";
 
 const app = window.comfyAPI.app.app;
 const $el = window.comfyAPI.ui.$el;
-const url = `${new URL(window.location.href).origin}/comfyui`;
+const url = `${new URL(window.location.href).origin}/comfyui-ghpages/comfyui`;
 
 function isApiJson(data) {
   return Object.values(data).every((v) => v.class_type);
