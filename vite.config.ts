@@ -68,13 +68,11 @@ export default defineConfig({
           fs.writeFileSync(path.resolve("dist/comfyui/index.html"), comfyHtml);
 
           const extFile = manifest["src/extensions/playground.js"];
-          if (fs.existsSync(path.resolve("dist/extensions/playground.js"))) {
-            fs.copyFileSync(
-              path.resolve("dist", extFile.file),
-              path.resolve("dist/extensions/playground.js"),
-            );
-            fs.rmSync(path.resolve("dist", extFile.file));
-          }
+          fs.copyFileSync(
+            path.resolve("dist", extFile.file),
+            path.resolve("dist/extensions/playground.js"),
+          );
+          fs.rmSync(path.resolve("dist", extFile.file));
         } catch (error) {
           console.error("Error injecting SW path:", error);
         }
