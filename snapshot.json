@@ -300,6 +300,14 @@
     "https://github.com/kijai/ComfyUI-LivePortraitKJ": {
       "hash": "4d9dc6205b793ffd0fb319816136d9b8c0dbfdff",
       "disabled": false
+    },
+    "https://github.com/kijai/ComfyUI-MochiWrapper": {
+      "hash": "e1bd05240ac31b72166e9d952c75dd5735352311",
+      "disabled": false
+    },
+    "https://github.com/kijai/ComfyUI-CogVideoXWrapper": {
+      "hash": "909d7026f3532dab1104fccaf3f1f1bc1506b6dc",
+      "disabled": false
     }
   },
   "file_custom_nodes": [
