@@ -3,6 +3,7 @@ import os
 import requests
 import zipfile
 import shutil
+import json
 from pathlib import Path
 
 
@@ -10,8 +11,11 @@ class ComfyUIUpdater:
     def __init__(self):
         self.version_file = "version.txt"
         self.target_dir = Path("public/comfyui")
-        self.github_api_url = (
+        self.comfyui_frontend_url = (
             "https://api.github.com/repos/Comfy-Org/ComfyUI_frontend/releases/latest"
+        )
+        self.comfyui_gh_url = (
+            "https://api.github.com/repos/comfyanonymous/ComfyUI/commits/master"
         )
 
     def get_current_version(self):
@@ -29,7 +33,7 @@ class ComfyUIUpdater:
         if "GITHUB_TOKEN" in os.environ:
             headers["Authorization"] = f"token {os.environ['GITHUB_TOKEN']}"
 
-        response = requests.get(self.github_api_url, headers=headers)
+        response = requests.get(self.comfyui_frontend_url, headers=headers)
         response.raise_for_status()
         release_data = response.json()
 
@@ -91,6 +95,28 @@ class ComfyUIUpdater:
         with open(self.version_file, "w") as f:
             f.write(new_version)
 
+    def get_latest_commit_hash(self):
+        """Get the latest commit hash from the GitHub repository."""
+        headers = {}
+        response = requests.get(self.comfyui_gh_url, headers=headers)
+        response.raise_for_status()
+        commit_data = response.json()
+        return commit_data["sha"]
+
+    def update_snapshot_file(self, commit_hash):
+        """Update the snapshot.json file with the latest commit hash."""
+        snapshot_file = "snapshot.json"
+        try:
+            with open(snapshot_file, "r") as f:
+                snapshot_data = json.load(f)
+        except FileNotFoundError:
+            snapshot_data = {}
+
+        snapshot_data["comfyui"] = commit_hash
+
+        with open(snapshot_file, "w") as f:
+            json.dump(snapshot_data, f, indent=4)
+
     def update(self):
         """Main update process."""
         try:
@@ -107,6 +133,11 @@ class ComfyUIUpdater:
             if current_version != latest_version:
                 self.update_version_file(latest_version)
                 print(f"Successfully updated to version {latest_version}")
+
+            # Update snapshot.json with the latest commit hash
+            latest_commit_hash = self.get_latest_commit_hash()
+            self.update_snapshot_file(latest_commit_hash)
+            print(f"Updated snapshot.json with commit hash {latest_commit_hash}")
 
         except requests.exceptions.RequestException as e:
             print(f"Error during HTTP request: {e}")
